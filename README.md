@@ -1,8 +1,12 @@
 # [largs](https://github.com/deployable/node-largs)
 
-## Title
+## Light weight command line args parser 
 
-Lighter command line args parser
+Simple command line argument configuration and parsing with minimal dependencies.
+
+Similar to Yargs but no where near as extensive.
+
+Requires Node 6+
 
 ## Install
  
