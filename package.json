@@ -1,0 +1,37 @@
+{
+  "name": "largs",
+  "version": "0.0.0",
+  "description": "A lighter command line args parser",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha",
+    "test:debug": "DEBUG='*' mocha debug",
+    "test:coverage": "istanbul cover _mocha && istanbul check-coverage",
+    "release:test": "set -uex; npm test; npm version prerelease; npm publish --tag testing",
+    "release:patch": "set -uex; npm run test:coverage; npm version patch; git push; npm publish; git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deployable/node-largs.git"
+  },
+  "keywords": [
+    "deployable",
+    "module"
+  ],
+  "author": "Matt Hoyle <code at deployable.co>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/deployable/node-largs/issues"
+  },
+  "homepage": "https://github.com/deployable/node-largs#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "~0.4.5",
+    "mocha": "^3.1.2",
+    "sinon": "^1.17.7"
+  },
+  "dependencies": {
+    "@deployable/errors": "~0.9.2",
+    "debug": "^2"
+  }
+}
