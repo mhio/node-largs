@@ -1,6 +1,6 @@
 {
   "name": "largs",
-  "version": "0.0.1-0",
+  "version": "0.0.1",
   "description": "A light weight command line args parser",
   "main": "lib/index.js",
   "scripts": {
