@@ -1,7 +1,7 @@
 {
   "name": "largs",
   "version": "0.0.0",
-  "description": "A lighter command line args parser",
+  "description": "A light weight command line args parser",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha",
