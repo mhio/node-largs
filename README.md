@@ -4,7 +4,7 @@
 
 Simple command line argument configuration and parsing with minimal dependencies.
 
-Similar to Yargs but no where near as extensive.
+The API has a similar feel to Yargs but no where near as extensive.
 
 Requires Node 6+
 
