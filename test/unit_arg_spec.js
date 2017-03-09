@@ -64,6 +64,16 @@ describe('Unit::largs', function(){
         arg = new Arg('id')
       })
 
+      describe('badtype', function(){
+        it('should load a flag from argv', function(){
+          let fn = ()=> arg.type('badtype').loadArgv(['-fw'])
+          expect( fn ).to.throw(/Unknown arg type "badtype" for "id"/)
+        })
+        xit('wat?', function(){
+          let fn = ()=> arg.type('badtype').loadArgv(['-fw'])
+          expect( fn ).to.throw(/Unknown arg type "badtype" for "id"/)
+        })
+      })
       describe('boolean', function(){
         it('should default a bool to false', function(){
           arg.type('boolean')

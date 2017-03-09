@@ -43,6 +43,7 @@ describe('Unit::largs', function(){
       expect( l.config_positional[0]._value ).to.equal( 'first' )
       expect( l.config_positional[1]._value ).to.equal( 'second' )
       expect( l.config_positional[2]._value ).to.equal( 'third' )
+      expect( l.toJSON().positional ).to.eql( ['first', 'second', 'third'] )
     })
 
     it('should process combined argv', function(){
@@ -66,6 +67,41 @@ describe('Unit::largs', function(){
         require: 'a',
         ui: undefined
       })
+    })
+
+    it('should error on an unknown flag', function(){
+      l = new Largs('id')
+      l.arg('barry')
+      let fn = ()=> l.go(['node','js','--worry'])
+      expect( fn ).throw(/The "worry" argument is unknown/)
+    })
+
+    it('should error on an unknown flag', function(){
+      l = new Largs('id')
+      l.arg('b').required()
+      let fn = ()=> l.go(['node','js','-w'])
+      expect( fn ).throw(/The "w" argument is unknown/)
+    })
+
+    it('should require a required long and short flag', function(){
+      l = new Largs('id')
+      l.arg('barry').short('b').required()
+      let fn = ()=> l.go(['node','js'])
+      expect( fn ).throw('The "--barry/-b" argument is required')
+    })
+
+    it('should require a required long flag', function(){
+      l = new Largs('id')
+      l.arg('barry').required()
+      let fn = ()=> l.go(['node','js'])
+      expect( fn ).throw('The "--barry" argument is required')
+    })
+
+    it('should require a required short flag', function(){
+      l = new Largs('id')
+      l.arg('b').required()
+      let fn = ()=> l.go(['node','js'])
+      expect( fn ).throw('The "-b" argument is required')
     })
 
     it('should allow combined flags when last needs a parameter', function(){
