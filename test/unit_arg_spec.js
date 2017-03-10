@@ -43,12 +43,13 @@ describe('Unit::largs', function(){
       })
 
       it('should have the `name` id', function(){
-        arg.short('c').long('car').description('bar')
+        arg.short('c').long('car').description('bar').group('gar')
         let o = {
           name: 'id',
           long: 'car',
           short: 'c',
           description: 'bar',
+          group: 'gar',
           help: undefined
         }
         expect( arg.toJSON() ).to.eql( o )
