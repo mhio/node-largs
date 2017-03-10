@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+const l = require('../../')
+
+l.label('intbin').help().version()
+
+l.go()
+
