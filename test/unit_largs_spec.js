@@ -170,7 +170,7 @@ describe('Unit::largs', function(){
 
     it('should process mocha like argv', function(){
       l.arg('b').type('boolean')
-      debug('l.config', l.config)
+      debug('l.config', l.config.b)
       let argv = [ '/bin/node',
         '/bin/_mocha',
         '--require',
