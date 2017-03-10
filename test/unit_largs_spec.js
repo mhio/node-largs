@@ -69,7 +69,7 @@ describe('Unit::largs', function(){
     })
 
     it('should import the Largs class', function(){
-      expect( l.label ).to.equal( 'id' )
+      expect( l._label ).to.equal( 'id' )
     })
 
     it('should process a positional argv', function(){
