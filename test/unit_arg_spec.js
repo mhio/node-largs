@@ -42,6 +42,11 @@ describe('Unit::largs', function(){
         expect( arg._help ).to.equal( 'dar' )
       })
 
+      it('should set the arg example to `ear`', function(){
+        arg.example('ear')
+        expect( arg._example ).to.equal( 'ear' )
+      })
+
       it('should have the `name` id', function(){
         arg.short('c').long('car').description('bar').group('gar')
         let o = {

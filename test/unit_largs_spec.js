@@ -193,6 +193,16 @@ describe('Unit::largs', function(){
       })
     })
 
+    it('should add a version option', function(){
+      l.version(2)
+      expect( l.config.version ).to.be.ok
+    })
+
+    it('should add a help option', function(){
+      l.help()
+      expect( l.config.help ).to.be.ok
+    })
+
   })
 
 })
