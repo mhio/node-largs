@@ -8,8 +8,13 @@ describe('Unit::largs', function(){
 
   describe('Class', function(){
 
+    let l = null
+
+    beforeEach(function(){
+      l = new Largs('class')
+    })
+
     it('normalise args', function(){
-      let l = new Largs('proc')
       l.normaliseArgv(['-b'])
       expect( ()=> l.normaliseArgv(['-']) ).to.throw('No argument')
       expect( ()=> l.normaliseArgv(['--']) ).to.throw('No argument')
@@ -19,6 +24,20 @@ describe('Unit::largs', function(){
       l.normaliseArgv(['--b', '--w'])
       l.normaliseArgv(['--ba', '--wa'])
       expect( ()=> l.normaliseArgv(['---']) ).to.throw('Invalid argument')
+    })
+
+    it('.lookupShort', function(){
+      l.option('b')
+      let b = l.lookupShort('b')
+      expect( b, 'name' ).have.property('_name').and.equal('b')
+      expect( b, 'short' ).have.property('_short').and.equal('b')
+    })
+
+    it('.lookupLong', function(){
+      l.option('ba')
+      let b = l.lookupLong('ba')
+      expect( b, 'name' ).have.property('_name').and.equal('ba')
+      expect( b, 'long' ).have.property('_long').and.equal('ba')
     })
 
   })
@@ -38,20 +57,6 @@ describe('Unit::largs', function(){
 
     it('should import the Largs class', function(){
       expect( l.label ).to.equal( 'id' )
-    })
-
-    it('should process mocha like argv', function(){
-      l.arg('b').type('boolean')
-      debug('l.config', l.config)
-      let argv = [ '/bin/node',
-        '/bin/_mocha',
-        '--require',
-        './test/fixture/mocha-setup.js',
-        '--ui',
-        'bdd',
-        '-bw'
-      ]
-      expect( l.go(argv) ).to.be.ok
     })
 
     it('should process a positional argv', function(){
@@ -79,25 +84,14 @@ describe('Unit::largs', function(){
       expect( l.config_positional[0]._value ).to.equal( './b.js' )
     })
 
-    it('should export json', function(){
-      let argv = [ 'node', 't.js', '--require', 'a', '-b', '-w']
-      l.go(argv)
-      expect( l.toJSON().options ).eql({
-        bail: true,
-        watch: true,
-        require: 'a',
-        ui: undefined
-      })
-    })
-
-    it('should error on an unknown flag', function(){
+    it('should error on an unknown flag "worry"', function(){
       l = new Largs('id')
       l.arg('barry')
       let fn = ()=> l.go(['node','js','--worry'])
       expect( fn ).throw(/The "worry" argument is unknown/)
     })
 
-    it('should error on an unknown flag', function(){
+    it('should error on an unknown flag "-w"', function(){
       l = new Largs('id')
       l.arg('b').required()
       let fn = ()=> l.go(['node','js','-w'])
@@ -106,9 +100,16 @@ describe('Unit::largs', function(){
 
     it('should require a required long and short flag', function(){
       l = new Largs('id')
-      l.arg('barry').short('b').required()
+      l.arg('garry').short('g').required()
       let fn = ()=> l.go(['node','js'])
-      expect( fn ).throw('The "--barry/-b" argument is required')
+      expect( fn ).throw('The "--garry/-g" argument is required')
+    })
+
+    it('should require a required long and short flag with different name', function(){
+      l = new Largs('id')
+      l.arg('gazza').long('garry').short('g').required()
+      let fn = ()=> l.go(['node','js'])
+      expect( fn ).throw('The "--garry/-g" argument is required')
     })
 
     it('should require a required long flag', function(){
@@ -143,7 +144,7 @@ describe('Unit::largs', function(){
       l.arg('b')
       l.arg('w').type('flag')
       let fn = ()=> l.go(['node','js','-bw', 'last'])
-      expect( fn ).to.throw(/Combined arguments must be flags/)
+      expect( fn ).to.throw(/Combined arguments can only be flags/)
     })
 
     it('shouldn\'t allow combined flags that need a parameter', function(){
@@ -151,7 +152,32 @@ describe('Unit::largs', function(){
       l.arg('b')
       l.arg('w').type('flag')
       let fn = ()=> l.go(['node','js','-bw'])
-      expect( fn ).to.throw(/Combined arguments must be flags/)
+      expect( fn ).to.throw(/Combined arguments can only be flags/)
+    })
+
+    it('should process mocha like argv', function(){
+      l.arg('b').type('boolean')
+      debug('l.config', l.config)
+      let argv = [ '/bin/node',
+        '/bin/_mocha',
+        '--require',
+        './test/fixture/mocha-setup.js',
+        '--ui',
+        'bdd',
+        '-bw'
+      ]
+      expect( l.go(argv) ).to.be.ok
+    })
+
+    it('should export json', function(){
+      let argv = [ 'node', 't.js', '--require', 'a', '-b', '-w']
+      l.go(argv)
+      expect( l.toJSON().options ).eql({
+        bail: true,
+        watch: true,
+        require: 'a',
+        ui: undefined
+      })
     })
 
   })
