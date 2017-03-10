@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@deployable/errors": "~0.9.2",
-    "debug": "^2"
+    "debug": "^2",
+    "lodash.foreach": "^4.5.0"
   }
 }

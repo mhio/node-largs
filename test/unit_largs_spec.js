@@ -1,8 +1,27 @@
 /* global expect */
+const debug = require('debug')('dply:test:replacer:unit:largs')
 const { Largs } = require('../lib/largs')
 
 
 describe('Unit::largs', function(){
+
+
+  describe('Class', function(){
+
+    it('normalise args', function(){
+      let l = new Largs('proc')
+      l.normaliseArgv(['-b'])
+      expect( ()=> l.normaliseArgv(['-']) ).to.throw('No argument')
+      expect( ()=> l.normaliseArgv(['--']) ).to.throw('No argument')
+      l.normaliseArgv(['-bwa'])
+      l.normaliseArgv(['-bw', 'test'])
+      l.normaliseArgv(['-b', '-w'])
+      l.normaliseArgv(['--b', '--w'])
+      l.normaliseArgv(['--ba', '--wa'])
+      expect( ()=> l.normaliseArgv(['---']) ).to.throw('Invalid argument')
+    })
+
+  })
 
 
   describe('Largs', function(){
@@ -21,7 +40,9 @@ describe('Unit::largs', function(){
       expect( l.label ).to.equal( 'id' )
     })
 
-    it('should process args argv', function(){
+    it('should process mocha like argv', function(){
+      l.arg('b').type('boolean')
+      debug('l.config', l.config)
       let argv = [ '/bin/node',
         '/bin/_mocha',
         '--require',
@@ -104,18 +125,20 @@ describe('Unit::largs', function(){
       expect( fn ).throw('The "-b" argument is required')
     })
 
-    it('should allow combined flags when last needs a parameter', function(){
+    it('should allow combined flags when only the last needs a parameter', function(){
       l = new Largs('id')
-      l.arg('b')
       l.arg('w').type('flag')
-      l.go(['node','js','-wb', 'last'])
+      l.arg('a').type('flag')
+      l.arg('b')
+      l.go(['node','js','-wab', 'last'])
       expect( l.toJSON().options ).eql({
         b: 'last',
-        w: true
+        w: true,
+        a: true
       })
     })
 
-    it('shouldn\'t allow combined flags that need a parameter', function(){
+    it('shouldn\'t allow combined flags that need a parameters', function(){
       l = new Largs('id')
       l.arg('b')
       l.arg('w').type('flag')
@@ -128,7 +151,7 @@ describe('Unit::largs', function(){
       l.arg('b')
       l.arg('w').type('flag')
       let fn = ()=> l.go(['node','js','-bw'])
-      expect( fn ).to.throw(/option requires a paramater/)
+      expect( fn ).to.throw(/Combined arguments must be flags/)
     })
 
   })
