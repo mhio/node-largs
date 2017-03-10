@@ -29,15 +29,28 @@ describe('Unit::largs', function(){
     it('.lookupShort', function(){
       l.option('b')
       let b = l.lookupShort('b')
-      expect( b, 'name' ).have.property('_name').and.equal('b')
-      expect( b, 'short' ).have.property('_short').and.equal('b')
+      expect( b, 'name' ).to.have.property('_name').and.equal('b')
+      expect( b, 'short' ).to.have.property('_short').and.equal('b')
     })
 
     it('.lookupLong', function(){
       l.option('ba')
       let b = l.lookupLong('ba')
-      expect( b, 'name' ).have.property('_name').and.equal('ba')
-      expect( b, 'long' ).have.property('_long').and.equal('ba')
+      expect( b, 'name' ).to.have.property('_name').and.equal('ba')
+      expect( b, 'long' ).to.have.property('_long').and.equal('ba')
+    })
+
+    it('.lookupGroup single', function(){
+      l.option('ba').group('first')
+      let o = l.lookupGroup('first')
+      expect( o ).to.have.keys('ba')
+    })
+
+    it('.lookupGroup multiple', function(){
+      l.option('ba').group('second')
+      l.option('cd').group('second')
+      let o = l.lookupGroup('second')
+      expect( o ).to.have.keys('ba', 'cd')
     })
 
   })
