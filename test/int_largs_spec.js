@@ -11,7 +11,7 @@ function genArgs(...args){
 
 describe('Integration::largs', function(){
 
-  describe('running commands', function(){
+  describe('Running command', function(){
 
     let l = null
     let cc = null
@@ -30,27 +30,27 @@ describe('Integration::largs', function(){
       let fn = ()=> l.run(genArgs('-h'))
       cc = CliCode.create(fn)
       return cc.run(fn).then(results =>{
-        expect(results.stdout, 'stdout').to.include('  -h   --help          - This help\n')
+        expect(results.stdout, 'stdout').to.include('  -h   --help          - This help')
         expect(results.stderr, 'stderr').to.eql([])
         expect(results.exit_code, 'exit code').to.equal(0)
       })
     })
 
-    it('should run help when a required arg is missing', function(){
+    it('should dump help when a required arg is missing', function(){
       l.help().arg('a').required().description('aa')
       let fn = ()=> l.run(genArgs())
       cc = CliCode.create(fn)
       return cc.run(fn).then(results =>{
+        expect(results.stderr, 'stderr')
+              .to.eql(['Error: Missing required arguments', ' "-a" is required'])
+
         expect(results.stdout, 'stdout').to.have.length(5)
 
         expect(results.stdout[3], 'stdout')
-              .to.equal('  -a                   - aa\n')
+              .to.equal('  -a                   - aa')
 
         expect(results.stdout[4], 'stdout')
-              .to.equal('  -h   --help          - This help\n')
-
-        expect(results.stderr, 'stderr')
-              .to.eql(['Error: The "-a" argument is required\n'])
+              .to.equal('  -h   --help          - This help')
 
         expect(results.exit, 'exited').to.be.true
         expect(results.exit_code, 'exit code').to.equal(1)
@@ -65,8 +65,9 @@ describe('Integration::largs', function(){
       return cc.run(fn).then(results =>{
         expect(results.stdout, 'stdout').to.have.length(0)
         expect(results.stderr, 'stderr').to.eql([
-          'Error: The "-a" argument is required\n',
-          'Error: The "-b" argument is required\n'
+          'Error: Missing required arguments',
+          ' "-a" is required',
+          ' "-b" is required'
         ])
         expect(results.exit_code, 'exit code').to.equal(1)
       })
@@ -77,7 +78,7 @@ describe('Integration::largs', function(){
       let fn = ()=> l.run(genArgs('-v'))
       cc = CliCode.create(fn)
       return cc.run(fn).then(results =>{
-        expect(results.stdout, 'stdout').to.eql(['55\n'])
+        expect(results.stdout, 'stdout').to.eql(['55'])
         expect(results.stderr, 'stderr').to.eql([])
         expect(results.exit_code, 'exit code').to.equal(0)
       })
@@ -89,7 +90,7 @@ describe('Integration::largs', function(){
       let fn = ()=> l.run(genArgs('-h'))
       cc = CliCode.create(fn)
       return cc.run(fn).then(results =>{
-        expect(results.stdout, 'stdout').to.include('integration:largs 56\n')
+        expect(results.stdout, 'stdout').to.include('integration:largs 56')
         expect(results.stderr, 'stderr').to.eql([])
       })
     })
@@ -100,7 +101,7 @@ describe('Integration::largs', function(){
       cc = CliCode.create(fn)
       return cc.run(fn).then(results =>{
         expect(results.stdout, 'stdout').to.eql([])
-        expect(results.stderr, 'stderr').to.eql(['Error: 1 argument is required\n'])
+        expect(results.stderr, 'stderr').to.eql(['Error: 1 argument is required'])
         expect(results.exit, 'exited').to.be.true
         expect(results.exit_code, 'exit code').to.equal(1)
       })
@@ -112,7 +113,7 @@ describe('Integration::largs', function(){
       cc = CliCode.create(fn)
       return cc.run(fn).then(results =>{
         expect(results.stderr, 'stderr')
-          .to.eql(['Error: The "--garry/-g" argument is required\n'])
+          .to.eql(['Error: Missing required arguments', ' "--garry/-g" is required'])
       })
     })
 
@@ -122,7 +123,7 @@ describe('Integration::largs', function(){
       cc = CliCode.create(fn)
       return cc.run(fn).then(results =>{
         expect(results.stderr, 'stderr')
-          .to.eql(['Error: The "--garry/-g" argument is required\n'])
+          .to.eql(['Error: Missing required arguments', ' "--garry/-g" is required'])
       })
     })
 
@@ -132,7 +133,7 @@ describe('Integration::largs', function(){
       cc = CliCode.create(fn)
       return cc.run(fn).then(results =>{
         expect(results.stderr, 'stderr')
-          .to.eql(['Error: The "--barry" argument is required\n'])
+          .to.eql(['Error: Missing required arguments',' "--barry" is required'])
       })
     })
 
@@ -142,7 +143,7 @@ describe('Integration::largs', function(){
       cc = CliCode.create(fn)
       return cc.run(fn).then(results =>{
         expect(results.stderr, 'stderr')
-          .to.eql(['Error: The "-b" argument is required\n'])
+          .to.eql(['Error: Missing required arguments',' "-b" is required'])
       })
     })
 
