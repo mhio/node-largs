@@ -5,6 +5,11 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha",
+    "test:watch": "mocha -bw",
+    "test:unit": "mocha test/unit*",
+    "test:unit:watch": "mocha -w test/unit*",
+    "test:int": "mocha test/int*",
+    "test:int:watch": "mocha -w test/int*",
     "test:debug": "DEBUG='*' mocha debug",
     "test:coverage": "istanbul cover _mocha && istanbul check-coverage",
     "release:test": "set -uex; npm test; npm version prerelease; npm publish --tag testing",
