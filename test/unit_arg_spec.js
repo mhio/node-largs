@@ -71,15 +71,26 @@ describe('Unit::largs', function(){
       })
 
       describe('badtype', function(){
+
         it('should load a flag from argv', function(){
           let fn = ()=> arg.type('badtype').loadArgv(['-fw'])
           expect( fn ).to.throw(/Unknown arg type "badtype" for "id"/)
         })
+
         xit('wat?', function(){
           let fn = ()=> arg.type('badtype').loadArgv(['-fw'])
           expect( fn ).to.throw(/Unknown arg type "badtype" for "id"/)
         })
+
+        it('should error when missing a bad type gets through to loadArgv', function(){
+          arg.type('string')
+          arg._type = 'failure'
+          let fn = ()=> arg.loadArgv([])
+          expect( fn ).to.throw( 'Wat? Arg shouldn\'t have a type "failure"' )
+        })
+
       })
+
       describe('boolean', function(){
         it('should default a bool to false', function(){
           arg.type('boolean')
@@ -115,6 +126,10 @@ describe('Unit::largs', function(){
         it('should load a string from argv', function(){
           arg.type('string').loadArgv(['whatever'])
           expect( arg._value ).to.equal( 'whatever' )
+        })
+        it('should error when missing a value', function(){
+          let fn = ()=> arg.type('string').loadArgv([])
+          expect( fn ).to.throw( 'The "id" option requires a paramater' )
         })
       })
 

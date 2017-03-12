@@ -69,8 +69,19 @@ describe('Unit::largs', function(){
       l.arg('watch').short('w').type('flag')
     })
 
-    it('should import the Largs class', function(){
+    it('should set a label from constructor', function(){
       expect( l._label ).to.equal( 'id' )
+    })
+
+    it('should change the label', function(){
+      l.label('whatever')
+      expect( l._label ).to.equal( 'whatever' )
+    })
+
+    it('should set a handler function', function(){
+      let fn = ()=> 'test'
+      l.handler(fn)
+      expect( l._handler ).to.equal( fn )
     })
 
     it('should process a positional argv', function(){

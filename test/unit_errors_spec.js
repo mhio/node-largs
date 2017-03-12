@@ -19,9 +19,18 @@ describe('Unit::largs::errors', function(){
       expect( ArgumentsError ).to.be.ok
     })
 
+    it('should import the ArgumentError class', function(){
+      expect( new ArgumentsError('') ).to.be.ok
+    })
+
     it('should build an error from an array of message', function(){
-      let err = ArgumentsError.build('wat',['wat','wat'])
-      expect( ()=> {throw err} ).to.throw(/^wat\n wat\n wat$/)
+      let err = ArgumentsError.build('wat?',['wat!','wat?!'])
+      expect( ()=> {throw err} ).to.throw('wat?\n wat!\n wat?!')
+    })
+
+    it('should build an error from an array of message', function(){
+      let err = ArgumentsError.build('wat')
+      expect( ()=> {throw err} ).to.throw(/^wat$/)
     })
 
   })
