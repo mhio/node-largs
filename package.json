@@ -12,8 +12,8 @@
     "test:int:watch": "mocha -w test/int*",
     "test:debug": "DEBUG='*' mocha debug",
     "test:coverage": "istanbul cover _mocha && istanbul check-coverage",
-    "release:test": "set -uex; npm test; npm version prerelease; npm publish --tag testing",
-    "release:patch": "set -uex; npm run test:coverage; npm version patch; git push; npm publish; git push --tags"
+    "release:test": "set -uex; yarn test; npm version prerelease; npm publish --tag testing",
+    "release:patch": "set -uex; rm -rf node_modules; yarn; yarn run test:coverage; npm version patch; git push; npm publish; git push --tags"
   },
   "repository": {
     "type": "git",
