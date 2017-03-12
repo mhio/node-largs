@@ -106,6 +106,46 @@ describe('Integration::largs', function(){
       })
     })
 
+    it('should require a required long and short flag', function(){
+      l.arg('garry').short('g').required()
+      let fn = ()=> l.go(['node','js'])
+      cc = CliCode.create(fn)
+      return cc.run(fn).then(results =>{
+        expect(results.stderr, 'stderr')
+          .to.eql(['Error: The "--garry/-g" argument is required\n'])
+      })
+    })
+
+    it('should require a required long and short flag with different name', function(){
+      l.arg('gazza').long('garry').short('g').required()
+      let fn = ()=> l.go(['node','js'])
+      cc = CliCode.create(fn)
+      return cc.run(fn).then(results =>{
+        expect(results.stderr, 'stderr')
+          .to.eql(['Error: The "--garry/-g" argument is required\n'])
+      })
+    })
+
+    it('should require a required long flag', function(){
+      l.arg('barry').required()
+      let fn = ()=> l.go(['node','js'])
+      cc = CliCode.create(fn)
+      return cc.run(fn).then(results =>{
+        expect(results.stderr, 'stderr')
+          .to.eql(['Error: The "--barry" argument is required\n'])
+      })
+    })
+
+    it('should require a required short flag', function(){
+      l.arg('b').required()
+      let fn = ()=> l.go(['node','js'])
+      cc = CliCode.create(fn)
+      return cc.run(fn).then(results =>{
+        expect(results.stderr, 'stderr')
+          .to.eql(['Error: The "-b" argument is required\n'])
+      })
+    })
+
   })
 
 })

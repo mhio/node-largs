@@ -112,33 +112,7 @@ describe('Unit::largs', function(){
       expect( fn ).throw(/The "w" argument is unknown/)
     })
 
-    it('should require a required long and short flag', function(){
-      l = new Largs('id')
-      l.arg('garry').short('g').required()
-      let fn = ()=> l.go(['node','js'])
-      expect( fn ).throw('The "--garry/-g" argument is required')
-    })
 
-    it('should require a required long and short flag with different name', function(){
-      l = new Largs('id')
-      l.arg('gazza').long('garry').short('g').required()
-      let fn = ()=> l.go(['node','js'])
-      expect( fn ).throw('The "--garry/-g" argument is required')
-    })
-
-    it('should require a required long flag', function(){
-      l = new Largs('id')
-      l.arg('barry').required()
-      let fn = ()=> l.go(['node','js'])
-      expect( fn ).throw('The "--barry" argument is required')
-    })
-
-    it('should require a required short flag', function(){
-      l = new Largs('id')
-      l.arg('b').required()
-      let fn = ()=> l.go(['node','js'])
-      expect( fn ).throw('The "-b" argument is required')
-    })
 
     it('should allow combined flags when only the last needs a parameter', function(){
       l = new Largs('id')
