@@ -1,5 +1,5 @@
 /* global expect */
-const { ArgumentError, LargsError } = require('../lib/errors')
+const { ArgumentError, ArgumentsError, LargsError } = require('../lib/errors')
 
 
 describe('Unit::largs::errors', function(){
@@ -13,6 +13,18 @@ describe('Unit::largs::errors', function(){
 
   })
 
+  describe('ArgumentsError', function(){
+
+    it('should import the ArgumentError class', function(){
+      expect( ArgumentsError ).to.be.ok
+    })
+
+    it('should build an error from an array of message', function(){
+      let err = ArgumentsError.build('wat',['wat','wat'])
+      expect( ()=> {throw err} ).to.throw(/^wat\n wat\n wat$/)
+    })
+
+  })
 
   describe('LargsError', function(){
 

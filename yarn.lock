@@ -6,9 +6,9 @@
   version "0.9.2"
   resolved "https://registry.npmjs.org/@deployable/errors/-/errors-0.9.2.tgz#e389915b2ac0c79e61b8cf6650439eca47688844"
 
-"@deployable/test-cli@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/@deployable/test-cli/-/test-cli-0.1.0.tgz#d6ee925a8e6b19c3c0523d8fa8cf4ef68019b3aa"
+"@deployable/test-cli@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/@deployable/test-cli/-/test-cli-0.2.0.tgz#5ae8d39faf54a791a04b6f265488d730bedaccaf"
   dependencies:
     "@deployable/errors" "^0.9.2"
     bluebird "^3.5.0"
