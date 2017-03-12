@@ -25,6 +25,22 @@ describe('Integration::largs', function(){
       cc.tornDown()
     })
 
+    it('should default the label to the script name', function(){
+      l = new Largs()
+      let fn = ()=> l.go(genArgs())
+      cc = CliCode.create(fn)
+      return cc.run(fn).then( ()=> {
+        expect( l._label ).to.equal( 'largs.js' )
+      })
+    })
+
+    it('should use the attached handler', function(done){
+      l.handler(()=> done())
+      let fn = ()=> l.go(genArgs())
+      cc = CliCode.create(fn)
+      return cc.run(fn)
+    })
+
     it('should add and display help', function(){
       l.help()
       let fn = ()=> l.run(genArgs('-h'))
@@ -102,6 +118,19 @@ describe('Integration::largs', function(){
       return cc.run(fn).then(results =>{
         expect(results.stdout, 'stdout').to.eql([])
         expect(results.stderr, 'stderr').to.eql(['Error: 1 argument is required'])
+        expect(results.exit, 'exited').to.be.true
+        expect(results.exit_code, 'exit code').to.equal(1)
+      })
+    })
+
+    it('should error help when many positional is required', function(){
+      l.positional().type('string').required()
+      l.positional().type('integer').required()
+      let fn = ()=> l.run(genArgs())
+      cc = CliCode.create(fn)
+      return cc.run(fn).then(results =>{
+        expect(results.stdout, 'stdout').to.eql([])
+        expect(results.stderr, 'stderr').to.eql(['Error: 2 arguments are required'])
         expect(results.exit, 'exited').to.be.true
         expect(results.exit_code, 'exit code').to.equal(1)
       })
