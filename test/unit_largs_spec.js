@@ -1,5 +1,6 @@
 /* global expect */
 const debug = require('debug')('dply:test:replacer:unit:largs')
+const {CliCode} = require('@deployable/test-cli')
 const { Largs } = require('../lib/largs')
 
 

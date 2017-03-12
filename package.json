@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/deployable/node-largs#readme",
   "devDependencies": {
+    "@deployable/test-cli": "^0.1.0",
     "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "istanbul": "~0.4.5",
     "mocha": "^3.1.2",
     "sinon": "^1.17.7"
