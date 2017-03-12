@@ -83,6 +83,17 @@ describe('Integration::largs', function(){
       })
     })
 
+    it('should add version to help header', function(){
+      l.version(56)
+      l.help()
+      let fn = ()=> l.go(genArgs('-h'))
+      cc = CliCode.create(fn)
+      return cc.run(fn).then(results =>{
+        expect(results.stdout, 'stdout').to.include('integration:largs 56\n')
+        expect(results.stderr, 'stderr').to.eql([])
+      })
+    })
+
     it('should error help when a positional is required', function(){
       l.positional().type('string').required()
       let fn = ()=> l.go(genArgs())
