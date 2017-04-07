@@ -105,7 +105,7 @@ describe('Unit::largs', function(){
         './b.js'
       ]
       expect( l.go(argv) ).to.be.ok
-      expect( l.config.require._value ).to.equal( './a.js' )
+      expect( l.config_options.require._value ).to.equal( './a.js' )
       expect( l.config_positional[0]._value ).to.equal( './b.js' )
     })
 
@@ -122,8 +122,6 @@ describe('Unit::largs', function(){
       let fn = ()=> l.go(['node','js','-w'])
       expect( fn ).throw(/The "w" argument is unknown/)
     })
-
-
 
     it('should allow combined flags when only the last needs a parameter', function(){
       l = new Largs('id')
@@ -156,7 +154,7 @@ describe('Unit::largs', function(){
 
     it('should process mocha like argv', function(){
       l.arg('b').type('boolean')
-      debug('l.config', l.config.b)
+      debug('l.config', l.config_options.b)
       let argv = [ '/bin/node',
         '/bin/_mocha',
         '--require',
@@ -181,12 +179,14 @@ describe('Unit::largs', function(){
 
     it('should add a version option', function(){
       l.version(2)
-      expect( l.config.version ).to.be.ok
+      expect( l.getConfig() )
+        .to.contain.key('version').and.to.be.ok
     })
 
     it('should add a help option', function(){
       l.help()
-      expect( l.config.help ).to.be.ok
+      expect( l.getConfig() )
+        .to.contain.key('help').and.to.be.ok
     })
 
   })
