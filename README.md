@@ -4,7 +4,7 @@
 
 Simple command line argument configuration and parsing with minimal dependencies.
 
-The API has a similar feel to Yargs but no where near as extensive.
+The API has a similar feel to [Yargs](http://yargs.js.org/) but largs has a limited feature set. 
 
 Requires Node 6+
 
@@ -16,6 +16,8 @@ Requires Node 6+
 
 ## Usage
 
+Create an `.option` or `.positional` and then `.run()`
+
 ### Options
 
 ```javascript
@@ -24,7 +26,6 @@ const largs = require('largs')
 
 largs.option('first')
    .short('f')
-   .long('firstthing')
    .required()
 
 largs.option('second')
@@ -37,10 +38,11 @@ largs.positional('one')
    .type('enum', ['this'])
    .required()
 
-const args = largs.run() // returns `largs.conf`
+const args = largs.run() // returns `largs.data`
 
-console.log(args) // => { options: {}, positional: [], config: {} }
+console.log(args) // => { first: val, second: val, _: [] }
 ```
+
 
 ```
 → node app.js --two 22222 this
@@ -72,6 +74,18 @@ Error: Arg "1" was "asdf" but must be one of: this"
         help: undefined,
         group: '' } } }
 ```
+
+Shortcut object setup
+```
+const largs = require('largs')
+largs.options({
+  first: { short: 'f', required: true }
+  second: { short: 's', long: 'two', type: 'integer', default: 1 }
+})
+largs.positional('one').type('enum', ['this']).required()
+const args = largs.run().options
+```
+
 
 ## API
 
