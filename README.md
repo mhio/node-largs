@@ -20,6 +20,18 @@ Create an `.option` or `.positional` and then `.run()`
 
 ### Options
 
+Shortcut Options config setup
+
+```javascript
+const largs = require('largs')
+largs.options({
+  first: { short: 'f', required: true }
+  second: { short: 's', long: 'two', type: 'integer', default: 1 }
+})
+const args = largs.run().options
+```
+
+Functional Setup
 ```javascript
 
 const largs = require('largs')
@@ -75,16 +87,6 @@ Error: Arg "1" was "asdf" but must be one of: this"
         group: '' } } }
 ```
 
-Shortcut object setup
-```
-const largs = require('largs')
-largs.options({
-  first: { short: 'f', required: true }
-  second: { short: 's', long: 'two', type: 'integer', default: 1 }
-})
-largs.positional('one').type('enum', ['this']).required()
-const args = largs.run().options
-```
 
 
 ## API
