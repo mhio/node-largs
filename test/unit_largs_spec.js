@@ -1,6 +1,5 @@
 /* global expect */
 const debug = require('debug')('dply:test:replacer:unit:largs')
-const {CliCode} = require('@deployable/test-cli')
 const { Largs } = require('../lib/largs')
 
 
@@ -187,6 +186,20 @@ describe('Unit::largs', function(){
       l.help()
       expect( l.getConfig() )
         .to.contain.key('help').and.to.be.ok
+    })
+
+    it('should match the same using `options` config', function(){
+
+      let m = new Largs('id')
+      m.options({
+        require: {},
+        ui: {},
+        bail: { short: 'b', type: 'flag' },
+        watch: { short: 'w', type: 'flag' },
+      })
+      expect( m.getOptions() ).to.eql( l.getOptions() )
+      expect( m.getConfig() ).to.eql( l.getConfig() )
+      expect( m.getPositional() ).to.eql( l.getPositional() )
     })
 
   })
