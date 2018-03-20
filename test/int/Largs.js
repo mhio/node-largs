@@ -14,7 +14,8 @@ describe('Integration::largs::cli', function(){
   let largs = null
 
   // CliCode allows you to capture and test cli things without
-  // launching a full external node process
+  // launching a full external node process.
+  // cc is required so the stdout/stderr can be put back in place.
   let cc = null
 
   beforeEach(function(){
@@ -23,14 +24,14 @@ describe('Integration::largs::cli', function(){
 
   afterEach(function(){
     largs.reset()
-    cc.tornDown()
+    if (cc.tornDown) cc.tornDown()
   })
 
   it('should default the label to the script name', function(){
     largs = new Largs()
     let fn = ()=> largs.go(genArgs())
     cc = CliCode.create(fn)
-    return cc.run(fn).then( ()=> {
+    return cc.run(fn).then(()=> {
       expect( largs._label ).to.equal( 'largs.js' )
     })
   })
@@ -38,15 +39,15 @@ describe('Integration::largs::cli', function(){
   it('should default the label to the script name', async function(){
     largs = new Largs()
     let fn = ()=> largs.go(genArgs())
-    await CliCode.create(fn).run()
+    cc = CliCode.create(fn)
+    await cc.run(fn)
     expect( largs._label ).to.equal( 'largs.js' )
   })
 
   it('should use the attached handler', function(done){
     largs.handler(()=> done())
     let fn = ()=> largs.go(genArgs())
-    cc = CliCode.create(fn)
-    return cc.run(fn)
+    return CliCode.run(fn)
   })
 
   it('should add and display help', function(){
