@@ -12,6 +12,9 @@ function genArgs(...args){
 describe('Integration::largs::cli', function(){
 
   let largs = null
+
+  // CliCode allows you to capture and test cli things without
+  // launching a full external node process
   let cc = null
 
   beforeEach(function(){
