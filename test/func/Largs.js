@@ -35,6 +35,13 @@ describe('Integration::largs::cli', function(){
     })
   })
 
+  it('should default the label to the script name', async function(){
+    largs = new Largs()
+    let fn = ()=> largs.go(genArgs())
+    await CliCode.create(fn).run()
+    expect( largs._label ).to.equal( 'largs.js' )
+  })
+
   it('should use the attached handler', function(done){
     largs.handler(()=> done())
     let fn = ()=> largs.go(genArgs())
