@@ -13,7 +13,7 @@
     "test:int": "mocha test/int",
     "test:int": "mocha test/func",
     "test:debug": "DEBUG='*' mocha debug",
-    "test:coverage": "nyc cover _mocha test/unit test/int test/func && nyc check-coverage",
+    "test:coverage": "nyc _mocha test/unit test/int && nyc report -r html && nyc check-coverage",
     "release:test": "set -uex; yarn test; npm version prerelease; npm publish --tag testing",
     "release:patch": "set -uex; git pull; rm -rf node_modules; yarn; yarn run test:coverage; npm version patch; git push; npm publish; git push --tags"
   },
