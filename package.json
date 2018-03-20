@@ -1,6 +1,6 @@
 {
   "name": "largs",
-  "version": "0.2.0",
+  "version": "0.3.0-0",
   "engines": {
     "node": ">=6.0.0"
   },
@@ -8,14 +8,14 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha test/unit test/int test/func",
-    "test:watch": "nodemon -i test/output -x mocha test/unit test/int test/func",
+    "test:watch": "nodemon -i test/output -x mocha --bail test/unit test/int test/func",
     "test:unit": "mocha test/unit",
     "test:int": "mocha test/int",
     "test:int": "mocha test/func",
     "test:debug": "DEBUG='*' mocha debug",
-    "test:coverage": "nyc cover _mocha && nyc check-coverage",
+    "test:coverage": "nyc cover _mocha test/unit test/int test/func && nyc check-coverage",
     "release:test": "set -uex; yarn test; npm version prerelease; npm publish --tag testing",
-    "release:patch": "set -uex; rm -rf node_modules; yarn; yarn run test:coverage; npm version patch; git push; npm publish; git push --tags"
+    "release:patch": "set -uex; git pull; rm -rf node_modules; yarn; yarn run test:coverage; npm version patch; git push; npm publish; git push --tags"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
     "deployable",
     "module"
   ],
-  "author": "Matt Hoyle <code at deployable.co>",
+  "author": "Matt Hoyle <code a a t t deployable.co>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/deployable/node-largs/issues"
