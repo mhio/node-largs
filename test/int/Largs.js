@@ -69,7 +69,7 @@ describe('Integration::largs::cli', function(){
       expect(results.stderr, 'stderr')
             .to.eql(['Error: Missing required arguments', ' "-a" is required'])
 
-      expect(results.stdout, 'stdout').to.have.length(5)
+      expect(results.stdout, 'stdout').to.have.length(6)
 
       expect(results.stdout[3], 'stdout')
             .to.equal('  -a                   - aa')
