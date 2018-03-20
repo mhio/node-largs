@@ -1,6 +1,6 @@
 {
   "name": "largs",
-  "version": "0.3.0-0",
+  "version": "0.3.0",
   "engines": {
     "node": ">=6.0.0"
   },
@@ -10,7 +10,6 @@
     "test": "mocha test/unit test/int test/func",
     "test:watch": "nodemon -i test/output -x mocha --bail test/unit test/int test/func",
     "test:unit": "mocha test/unit",
-    "test:int": "mocha test/int",
     "test:int": "mocha test/func",
     "test:debug": "DEBUG='*' mocha debug",
     "test:coverage": "nyc _mocha test/unit test/int && nyc report -r html && nyc check-coverage",
