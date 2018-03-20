@@ -1,10 +1,9 @@
 /* global expect */
 const debug = require('debug')('dply:test:replacer:unit:largs')
-const { Largs } = require('../lib/largs')
+const { Largs } = require('../../lib/largs')
 
 
-describe('Unit::largs', function(){
-
+describe('Unit::largs::Largs', function(){
 
   describe('Class', function(){
 

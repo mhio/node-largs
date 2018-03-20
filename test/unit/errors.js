@@ -1,9 +1,8 @@
 /* global expect */
-const { ArgumentError, ArgumentsError, LargsError } = require('../lib/errors')
+const { ArgumentError, ArgumentsError, LargsError } = require('../../lib/errors')
 
 
 describe('Unit::largs::errors', function(){
-
 
   describe('ArgumentError', function(){
 
