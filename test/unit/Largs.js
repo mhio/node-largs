@@ -13,30 +13,74 @@ describe('Unit::largs::Largs', function(){
       l = new Largs('class')
     })
 
-    it('normalise args', function(){
-      l.normaliseArgv(['-b'])
-      expect( ()=> l.normaliseArgv(['-']) ).to.throw('No argument')
-      expect( ()=> l.normaliseArgv(['--']) ).to.throw('No argument')
-      l.normaliseArgv(['-bwa'])
-      l.normaliseArgv(['-bw', 'test'])
-      l.normaliseArgv(['-b', '-w'])
-      l.normaliseArgv(['--b', '--w'])
-      l.normaliseArgv(['--ba', '--wa'])
-      expect( ()=> l.normaliseArgv(['---']) ).to.throw('Invalid argument')
+    describe('normalise', function(){
+
+      it('should not normalise a simple arg', function(){
+        l.normaliseArgv(['-b'])
+        expect( l.argv ).to.eql([ '-b' ])
+      })
+      it('should normalise 3 combined args into 3 seperate args -bwa', function(){
+        l.normaliseArgv(['-bwa'])
+        expect( l.argv ).to.eql([ '-b', '-w', '-a' ])
+      })
+      it('should normalise combined args and leave others -bw test', function(){
+        l.normaliseArgv(['-bw', 'test'])
+        expect( l.argv ).to.eql([ '-b', '-w', 'test'])
+      })
+      it('should not normalise multiple simple args -b -w', function(){
+        l.normaliseArgv(['-b', '-w'])
+        expect( l.argv ).to.eql([ '-b', '-w' ])
+      })
+      it('should not normalise long args that are short --b', function(){
+        l.normaliseArgv(['--b', '--w'])
+        expect( l.argv ).to.eql([ '--b', '--w' ])
+      })
+      it('should not normalise long args that look combined --ba', function(){
+        l.normaliseArgv(['--ba', '--wa'])
+        expect( l.argv ).to.eql([ '--ba', '--wa' ])
+      })
+
+      // not sure if this is right
+      it('should normalise args', function(){
+        expect( ()=> l.normaliseArgv(['---']) ).to.throw('Invalid argument')
+      })
+
+      it('should allow - as an option', function(){
+        l.normaliseArgv(['-f', '-'])
+        expect( l.argv ).to.eql([ '-f', '-'])
+      })
+      it('should allow -- as an option', function(){
+        l.normaliseArgv(['-f', '--', 'next'])
+        expect( l.argv ).to.eql([ '-f', '--', 'next' ])
+      })
+
     })
 
-    it('.lookupShort', function(){
+    it('should lookup a short option by character', function(){
       l.option('b')
       let b = l.lookupShort('b')
       expect( b, 'name' ).to.have.property('_name').and.equal('b')
       expect( b, 'short' ).to.have.property('_short').and.equal('b')
     })
 
-    it('.lookupLong', function(){
+    it('should lookup a long option by name', function(){
       l.option('ba')
       let b = l.lookupLong('ba')
       expect( b, 'name' ).to.have.property('_name').and.equal('ba')
       expect( b, 'long' ).to.have.property('_long').and.equal('ba')
+    })
+
+    it('should lookup a long option by long name', function(){
+      l.option('ba').long('bab')
+      let b = l.lookupLong('bab')
+      expect( b, 'name' ).to.have.property('_name').and.equal('ba')
+      expect( b, 'long' ).to.have.property('_long').and.equal('bab')
+    })
+
+    it('should fail to lookup a long option by original name', function(){
+      l.option('ba').long('bab')
+      let b = l.lookupLong('ba')
+      expect( b, 'name' ).to.eql( false )
     })
 
     it('.lookupGroup single', function(){
