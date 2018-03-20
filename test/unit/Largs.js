@@ -92,7 +92,7 @@ describe('Unit::largs::Largs', function(){
       expect( l.config_positional[0]._value ).to.equal( 'first' )
       expect( l.config_positional[1]._value ).to.equal( 'second' )
       expect( l.config_positional[2]._value ).to.equal( 'third' )
-      expect( l.toJSON().positional ).to.eql( ['first', 'second', 'third'] )
+      expect( l.getPositional() ).to.eql( ['first', 'second', 'third'] )
     })
 
     it('should process combined argv', function(){
@@ -127,7 +127,7 @@ describe('Unit::largs::Largs', function(){
       l.arg('a').type('flag')
       l.arg('b')
       l.go(['node','js','-wab', 'last'])
-      expect( l.toJSON().options ).eql({
+      expect( l.toOptionsObject() ).eql({
         b: 'last',
         w: true,
         a: true
@@ -167,7 +167,7 @@ describe('Unit::largs::Largs', function(){
     it('should export json', function(){
       let argv = [ 'node', 't.js', '--require', 'a', '-b', '-w']
       l.go(argv)
-      expect( l.toJSON().options ).eql({
+      expect( l.getOptions() ).eql({
         bail: true,
         watch: true,
         require: 'a',
@@ -177,13 +177,13 @@ describe('Unit::largs::Largs', function(){
 
     it('should add a version option', function(){
       l.version(2)
-      expect( l.getConfig() )
+      expect( l.getOptions() )
         .to.contain.key('version').and.to.be.ok
     })
 
     it('should add a help option', function(){
       l.help()
-      expect( l.getConfig() )
+      expect( l.getOptions() )
         .to.contain.key('help').and.to.be.ok
     })
 
