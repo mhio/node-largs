@@ -52,7 +52,7 @@ largs.positional('one')
 
 const args = largs.run() // returns `largs.data`
 
-console.log(args) // => { firstthing: "val", otherthing: "val", positional: [] }
+console.log(args) // => { firstthing: "val", otherthing: "val", positional: [ 'one' ] }
 ```
 
 

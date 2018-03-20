@@ -1,4 +1,5 @@
-const largs = require('largs')
+//const largs = require('largs')
+const largs = require('../')
 
 largs.option('first')
    .short('f')
@@ -12,7 +13,7 @@ largs.option('second')
    .default(1)
 
 largs.positional('one')
-   .type('enum', ['this'])
+   .type('enum', ['this','other'])
    .required()
 
 const args = largs.run() // returns `largs.conf`
