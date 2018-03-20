@@ -36,11 +36,11 @@ Functional Setup
 
 const largs = require('largs')
 
-largs.option('first')
+largs.option('firstthing')
    .short('f')
    .required()
 
-largs.option('second')
+largs.option('otherthing')
    .short('s')
    .long('two')
    .type('integer')
@@ -52,7 +52,7 @@ largs.positional('one')
 
 const args = largs.run() // returns `largs.data`
 
-console.log(args) // => { first: val, second: val, _: [] }
+console.log(args) // => { firstthing: "val", otherthing: "val", positional: [] }
 ```
 
 
@@ -71,15 +71,15 @@ Error: Arg "1" was "asdf" but must be one of: this"
 { options: { first: 'one', second: 22222 },
   positional: [ 'this' ],
   config:
-   { first:
-      { name: 'first',
+   { firstthing:
+      { name: 'firstthing',
         short: 'f',
         long: 'firstthing',
         description: undefined,
         help: undefined,
         group: '' },
-     second:
-      { name: 'second',
+     otherthing:
+      { name: 'otherthing',
         short: 's',
         long: 'two',
         description: undefined,
