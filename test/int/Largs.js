@@ -103,7 +103,7 @@ describe('Integration::largs::cli', function(){
     let fn = ()=> largs.run(genArgs('-v'))
     cc = CliCode.create(fn)
     return cc.run(fn).then(results =>{
-      expect(results.stdout, 'stdout').to.eql(['55'])
+      expect(results.stdout[0], 'stdout').to.match(/55/)
       expect(results.stderr, 'stderr').to.eql([])
       expect(results.exit_code, 'exit code').to.equal(0)
     })
