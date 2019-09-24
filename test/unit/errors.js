@@ -1,43 +1,43 @@
 /* global expect */
-const { ArgumentError, ArgumentsError, LargsError } = require('../../lib/errors')
+const { ArgumentException, ArgumentsException, LargsException } = require('../../lib/exceptions')
 
 
-describe('Unit::largs::errors', function(){
+describe('unit::largs::exceptions', function(){
 
-  describe('ArgumentError', function(){
+  describe('ArgumentException', function(){
 
-    it('should import the ArgumentError class', function(){
-      expect( ArgumentError ).to.be.ok
+    it('should import the ArgumentException class', function(){
+      expect( ArgumentException ).to.be.ok
     })
 
   })
 
-  describe('ArgumentsError', function(){
+  describe('ArgumentsException', function(){
 
-    it('should import the ArgumentError class', function(){
-      expect( ArgumentsError ).to.be.ok
+    it('should import the ArgumentException class', function(){
+      expect( ArgumentsException ).to.be.ok
     })
 
-    it('should import the ArgumentError class', function(){
-      expect( new ArgumentsError('') ).to.be.ok
+    it('should import the ArgumentException class', function(){
+      expect( new ArgumentsException('') ).to.be.ok
     })
 
     it('should build an error from an array of message', function(){
-      let err = ArgumentsError.build('wat?',['wat!','wat?!'])
+      let err = ArgumentsException.build('wat?',['wat!','wat?!'])
       expect( ()=> {throw err} ).to.throw('wat?\n wat!\n wat?!')
     })
 
     it('should build an error from an array of message', function(){
-      let err = ArgumentsError.build('wat')
+      let err = ArgumentsException.build('wat')
       expect( ()=> {throw err} ).to.throw(/^wat$/)
     })
 
   })
 
-  describe('LargsError', function(){
+  describe('LargsException', function(){
 
-    it('should import the LargsError class', function(){
-      expect( LargsError ).to.be.ok
+    it('should import the LargsException class', function(){
+      expect( LargsException ).to.be.ok
     })
 
   })

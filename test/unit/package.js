@@ -11,12 +11,16 @@ describe('Unit::largs::package', function(){
     expect( largs.Arg ).to.be.ok
   })
 
-  it('should have ArgumentError attached', function(){
-    expect( largs.ArgumentError ).to.be.ok
+  it('should have ArgumentException attached', function(){
+    expect( largs.ArgumentException ).to.be.ok
   })
 
-  it('should have LargsError attached', function(){
-    expect( largs.LargsError ).to.be.ok
+  it('should have ArgumentsException attached', function(){
+    expect( largs.ArgumentsException ).to.be.ok
+  })
+
+  it('should have LargsException attached', function(){
+    expect( largs.LargsException ).to.be.ok
   })
 
   it('should have a VERSION attached', function(){
