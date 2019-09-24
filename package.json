@@ -18,20 +18,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deployable/node-largs.git"
+    "url": "git+https://github.com/mhio/node-largs.git"
   },
   "keywords": [
-    "deployable",
+    "mhio",
     "module"
   ],
-  "author": "Matt Hoyle <code a a t t deployable.co>",
+  "author": "mhio",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/deployable/node-largs/issues"
+    "url": "https://github.com/mhio/node-largs/issues"
   },
-  "homepage": "https://github.com/deployable/node-largs#readme",
+  "homepage": "https://github.com/mhio/node-largs#readme",
   "devDependencies": {
-    "@deployable/test-cli": "^0.2.0",
+    "@mhio/test-cli": "^0.3.1",
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "mocha": "^6.2.0",
@@ -40,7 +40,7 @@
     "sinon": "7.5.0"
   },
   "dependencies": {
-    "@deployable/errors": "0.11.3",
+    "@mhio/exception": "0.2.1",
     "debug": "4.1.0",
     "lodash.foreach": "^4.5.0",
     "lodash.padend": "^4.6.1"
