@@ -96,7 +96,7 @@ Error: Arg "1" was "asdf" but must be one of: this"
 
 largs is released under the MIT license.
 
-Copyright 2016 Matt Hoyle - code at mhio.co
+Copyright 2019 mhio
 
 https://github.com/mhio/node-largs
 
