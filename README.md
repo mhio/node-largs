@@ -1,4 +1,4 @@
-# [largs](https://github.com/deployable/node-largs)
+# [largs](https://github.com/mhio/node-largs)
 
 ## Light weight command line args parser
 
@@ -96,7 +96,7 @@ Error: Arg "1" was "asdf" but must be one of: this"
 
 largs is released under the MIT license.
 
-Copyright 2016 Matt Hoyle - code at deployable.co
+Copyright 2016 Matt Hoyle - code at mhio.co
 
-https://github.com/deployable/node-largs
+https://github.com/mhio/node-largs
 

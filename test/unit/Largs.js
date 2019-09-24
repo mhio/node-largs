@@ -1,5 +1,5 @@
 /* global expect */
-const debug = require('debug')('dply:test:replacer:unit:largs')
+const debug = require('debug')('mhio:test:replacer:unit:largs')
 const { Largs } = require('../../lib/largs')
 
 
