@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@mhio/exception": "0.2.1",
-    "debug": "4.1.0",
+    "debug": "^4.1.1",
     "lodash.foreach": "^4.5.0",
     "lodash.padend": "^4.6.1"
   }
