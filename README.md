@@ -25,8 +25,8 @@ Shortcut Options config setup
 ```javascript
 const largs = require('largs')
 largs.options({
-  first: { short: 'f', required: true }
-  second: { short: 's', long: 'two', type: 'integer', default: 1 }
+  first: { short: 'f', required: true },
+  second: { short: 's', long: 'two', type: 'integer', default: 1 },
 })
 const args = largs.run().options
 ```
