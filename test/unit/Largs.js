@@ -96,6 +96,32 @@ describe('Unit::largs::Largs', function(){
       expect( o ).to.have.keys('ba', 'cd')
     })
 
+    it('should list all the short args', function(){
+      l.option('a')
+      l.option('b')
+      expect(l.listShortArgs()).to.eql(['a', 'b'])
+    })
+
+    it('should list all the short args without long', function(){
+      l.option('a')
+      l.option('b')
+      l.option('bbb')
+      expect(l.listShortArgs()).to.eql(['a', 'b'])
+    })
+
+    it('should list all the long args', function(){
+      l.option('bbb')
+      l.option('ccc')
+      expect(l.listLongArgs()).to.eql(['bbb', 'ccc'])
+    })
+
+    it('should list all the long args without short', function(){
+      l.option('b')
+      l.option('bbb')
+      l.option('ccc')
+      expect(l.listLongArgs()).to.eql(['bbb', 'ccc'])
+    })
+
   })
 
 
@@ -243,6 +269,47 @@ describe('Unit::largs::Largs', function(){
       expect( m.getOptions() ).to.eql( l.getOptions() )
       expect( m.getConfig() ).to.eql( l.getConfig() )
       expect( m.getPositional() ).to.eql( l.getPositional() )
+    })
+
+  })
+
+  describe('Largs commands', function(){
+
+    it('should support a command', function(){
+      let m = new Largs('id')
+      m.command('test')
+      expect( m.getOptions() ).to.eql( { test: {} } )
+    })
+
+    it('should support a command with options', function(){
+      let m = new Largs('id')
+      m.command('test').args({ yep: {} })
+      expect( m.getOptions() ).to.eql( { test: { yep: undefined } } )
+    })
+
+    it('should support a command with .args settings', function(){
+      let m = new Largs('id')
+      m.command('test').args({ yep: { type: Boolean, default: true } })
+      expect( m.getOptions() ).to.eql( { test: { yep: true } } )
+    })
+
+    it('should support a command from object', function(){
+      const opts = Largs.go({
+        command_1: {
+          what: {
+            type: Boolean,
+          },
+        },
+        options1: {
+          help: 'helpt',
+        },
+      }, { process_argv: ['node', 'go.js', '--options1', 'o1', '1', '--what' ] })
+      expect( opts ).to.eql({
+        1: {
+          what: true,
+        },
+        options1: 'o1',
+      })
     })
 
   })
