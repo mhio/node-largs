@@ -18,27 +18,37 @@ Requires Node 6+
 
 Create an `.option` or `.positional` and then `.run()`
 
+A `.command` can have `.option` and `.positional` too
+
 ### Options
 
 Shortcut Options config setup
 
 ```javascript
-const largs = require('largs')
-largs.options({
+//import Largs from 'largs'
+const { Largs } = require('largs')
+
+const args = Largs.run({
   first: { short: 'f', required: true },
   second: { short: 's', long: 'two', type: 'integer', default: 1 },
+  command_bork: {
+    onlyhere: { type: String },
+  }
 })
-const args = largs.run().options
+console.log(args.bork.onlyhere) // => 'chef'
 ```
 
-Functional Setup
+For functional Setup, you can import an instance
 ```javascript
-
-const largs = require('largs')
+//import { largs } from 'largs'
+const { largs } = require('largs')
 
 largs.option('firstthing')
    .short('f')
    .required()
+
+const cmd_bork = largs.command('bork')
+cmd_bork.option('onlyforbork').type('string)
 
 largs.option('otherthing')
    .short('s')
@@ -50,7 +60,7 @@ largs.positional('one')
    .type('enum', ['this'])
    .required()
 
-const args = largs.run() // returns `largs.data`
+const args = largs.run() // returns object representation of opts. `opts.largs`
 
 console.log(args) // => { firstthing: "val", otherthing: "val", positional: [ 'one' ] }
 ```
