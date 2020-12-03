@@ -1,6 +1,6 @@
 {
   "name": "largs",
-  "version": "0.5.0-2",
+  "version": "0.5.0",
   "engines": {
     "node": ">=8.0.0"
   },
