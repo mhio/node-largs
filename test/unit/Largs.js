@@ -5,6 +5,26 @@ const { Largs } = require('../../lib/largs')
 
 describe('Unit::largs::Largs', function(){
 
+  describe('Module', function(){
+   
+    it('should import a Largs', function(){
+      expect(require('../../')).be.an.instanceOf(Largs)
+    })
+    it('should import a Largs.Largs', function(){
+      expect(require('../../').Largs).be.eql(Largs)
+    })
+    it('should import a default', function(){
+      expect(require('../../').default).be.an.instanceOf(Largs)
+    })
+    it('should import a largs instance', function(){
+      expect(require('../../').largs).be.an.instanceOf(Largs)
+    })
+    it('should import a VERSION', function(){
+      expect(require('../../').VERSION).to.match(/\d+\.\d+\.\d+/)
+    })
+
+  })
+
   describe('Class', function(){
 
     let l = null
