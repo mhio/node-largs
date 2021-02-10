@@ -44,8 +44,8 @@ console.log(args.bork.onlyhere) // => 'chef'
 
 For functional setup 
 ```javascript
-//import { Largs } from 'largs'
-const { Largs } = require('largs')
+//import largs from 'largs'
+const { largs } = require('largs')
 
 largs.option('firstthing')
     .short('f')
