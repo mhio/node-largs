@@ -6,7 +6,7 @@ Simple cli arguments configuration and parsing with minimal dependencies.
 
 The API has a similar feel to [Yargs](http://yargs.js.org/) but largs has a limited feature set. 
 
-Requires Node 6+
+Requires Node 10+
 
 ## Install
 
