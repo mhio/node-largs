@@ -332,6 +332,26 @@ describe('Unit::largs::Largs', function(){
       })
     })
 
+    it('should support a command from object with _commands', function(){
+      const opts = Largs.go({
+        _commands: {
+          1: {
+            what: {
+              type: Boolean,
+            },
+          },
+        },
+        option1: {
+          help: 'helpt',
+        },
+      }, { process_argv: ['node', 'go.js', '--option1', 'o1', '1', '--what' ] })
+      expect( opts ).to.eql({
+        1: {
+          what: true,
+        },
+        option1: 'o1',
+      })
+    })
   })
 
 })

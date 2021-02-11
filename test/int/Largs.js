@@ -55,7 +55,20 @@ describe('Integration::largs::cli', function(){
     let fn = ()=> largs.run(genArgs('-h'))
     cc = CliCode.create(fn)
     return cc.run(fn).then(results =>{
-      expect(results.stdout, 'stdout').to.include('  -h   --help          - This help')
+      expect(results.stdout, 'stdout').to.include('  -h   --help            - This help')
+      expect(results.stderr, 'stderr').to.eql([])
+      expect(results.exit_code, 'exit code').to.equal(0)
+    })
+  })
+
+  it('should add and display verbose help', function(){
+    largs.help({ verbose: true })
+    let fn = ()=> largs.run(genArgs('-h'))
+    cc = CliCode.create(fn)
+    return cc.run(fn).then(results =>{
+      expect(results.stdout, 'stdout').to.include('  -h   --help             {boolean}')
+      //expect(results.stdout, 'stdout').to.eql([])
+      expect(results.stdout, 'stdout').to.include('            This help')
       expect(results.stderr, 'stderr').to.eql([])
       expect(results.exit_code, 'exit code').to.equal(0)
     })
@@ -72,10 +85,10 @@ describe('Integration::largs::cli', function(){
       expect(results.stdout, 'stdout').to.have.length(6)
 
       expect(results.stdout[3], 'stdout')
-            .to.equal('  -a                   - aa')
+            .to.equal('  -a                     - aa')
 
       expect(results.stdout[4], 'stdout')
-            .to.equal('  -h   --help          - This help')
+            .to.equal('  -h   --help            - This help')
 
       expect(results.exit, 'exited').to.be.true
       expect(results.exit_code, 'exit code').to.equal(1)
