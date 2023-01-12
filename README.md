@@ -1,6 +1,6 @@
 # [largs](https://github.com/mhio/node-largs)
 
-## Light weight args, command line parser
+## Light weight arguments, command line parser
 
 Simple cli arguments configuration and parsing with minimal dependencies.
 
